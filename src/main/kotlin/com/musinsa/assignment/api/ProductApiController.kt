@@ -5,6 +5,8 @@ import com.musinsa.assignment.service.ProductService
 import jakarta.validation.Valid
 import jakarta.websocket.server.PathParam
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.Mapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -96,6 +98,14 @@ class ProductApiController(
         val category:String,
         val price:Int,
     )
+
+    @DeleteMapping("/products/{id}")
+    fun deleteProduct(
+        @PathVariable("id") id: Long,
+    ):ResponseEntity<Nothing>{
+        productService.deleteById(id)
+        return ResponseEntity.noContent().build()
+    }
 }
 
 
