@@ -17,5 +17,15 @@ class GlobalExceptionHandler {
 
         return ResponseEntity<ErrorResponse>(errorResponse,HttpStatus.INTERNAL_SERVER_ERROR)
     }
+
+    @ExceptionHandler(PermissionDeniedException::class)
+    fun handlePermissionDeniedException(e: Exception): ResponseEntity<ErrorResponse> {
+        val errorResponse = ErrorResponse(
+            e.message ?: "에러가 발생했습니다.",
+            httpStatus = HttpStatus.FORBIDDEN,
+        )
+
+        return ResponseEntity<ErrorResponse>(errorResponse,HttpStatus.FORBIDDEN)
+    }
 }
 
